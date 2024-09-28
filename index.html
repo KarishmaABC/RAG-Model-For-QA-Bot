@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG QA Bot</title>
+</head>
+<body>
+    <h1>RAG QA Bot</h1>
+    <input type="text" id="question" placeholder="Ask me a question" style="width: 300px;">
+    <button onclick="askQuestion()">Ask</button>
+    <p id="answer"></p>
+
+    <script>
+        async function askQuestion() {
+            const question = document.getElementById("question").value;
+            const response = await fetch("http://127.0.0.1:5000/ask", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question }),
+            });
+            const data = await response.json();
+            document.getElementById("answer").innerText = data.answer;
+        }
+    </script>
+</body>
+</html>
